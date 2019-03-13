@@ -1,0 +1,35 @@
+{
+  "name": "hello-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolastudela/hello-next.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolastudela/hello-next/issues"
+  },
+  "homepage": "https://github.com/nicolastudela/hello-next#readme",
+  "dependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.7",
+    "@emotion/core": "^10.0.0",
+    "@emotion/styled": "^10.0.0",
+    "babel-plugin-emotion": "^10.0.0",
+    "emotion-theming": "^10.0.7",
+    "express": "^4.16.4",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^8.0.3",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "styled-system": "^4.0.4"
+  }
+}
