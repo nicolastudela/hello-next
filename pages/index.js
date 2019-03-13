@@ -1,38 +1,39 @@
 import Layout from "../components/MyLayout.js";
-import { Link } from '../uiLibrary'
 import fetch from "isomorphic-unfetch";
+import PostList from "../components/PostsList.js";
+import { Box } from '../uiLibrary'
 
-const PostLink = props => (
-  <li>
-    <Link as={`/p/${props.id}`} href={`/post?id=${props.id}`}>
-      {props.name}
-    </Link>
-  </li>
-);
 
 const Index = props => (
   <Layout >
     <h1>My Blog</h1>
-    <h2>Batman TV Shows</h2>
-    <>
-      <ul >
-        {props.shows.map(({ show }) => (
-          <PostLink key={show.id} {...show} />
-        ))}
-      </ul>
-    </>
+    <Box display='flex' justifyContent='space-arround'>
+      <Box>
+        <PostList title={'Batman'} shows={props.shows.batman} />
+      </Box>
+      <Box>
+        <PostList title={'Superman'} shows={props.shows.superman} />
+      </Box>
+    </Box> 
   </Layout>
 );
 
 Index.getInitialProps = async function() {
-  const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-  const data = await res.json();
+  const batmanSearchQuery = fetch("https://api.tvmaze.com/search/shows?q=batman");
+  const batmanDataProm = batmanSearchQuery.then(res => res.json());
 
-  console.log(`Show data fetched. Count: ${data.length}`);
+  const supermanSearchQuery = fetch("https://api.tvmaze.com/search/shows?q=superman");
+  const supermanDataProm = supermanSearchQuery.then(res => res.json());
 
+  const [batmanData, supermanData] = await Promise.all([batmanDataProm,supermanDataProm])
+  
   return {
-    shows: data
-  };
+    shows: 
+      {
+        batman: batmanData,
+        superman: supermanData,
+      }
+  }
 };
 
 export default Index;
