@@ -2,9 +2,9 @@
 
 This a basic NextJs app, that can be used as a sacaffold for building real apps. 
 
-## CSS-in-JS implementd with EmotionJs and Styled-Components
+## CSS-in-JS implemented using EmotionJs and Styled-Components
 
-Its fully integrated with EmotionJS and Styled-System and configured with a basic theme, so its ready to use for building primitives/atoms components to build an own component-library. 
+Its fully integrated with EmotionJS and Styled-System and configured with a basic `theme`, so its ready to use for building primitives/atoms components to build an own component-library. 
 
 Already have a Box component implementing all system-functions that makes you able to pass css via props. 
 
