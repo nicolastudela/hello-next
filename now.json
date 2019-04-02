@@ -1,6 +1,10 @@
 {
     "version": 2,
     "builds": [
-        { "src": "package.json", "use": "@now/static-build" }
-    ]
+        { "src": "package.json", "use": "@now/next" }
+    ],
+    "routes": [
+        { "src": "/p/(?<id>[^/]+)$", "dest": "/post?id=$id" },
+        { "src": "/post/(?<id>[^/]+)$", "dest": "/post?id=$id" }
+      ]
 }
