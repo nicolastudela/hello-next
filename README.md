@@ -15,7 +15,7 @@ Check for emotionjs and Styled-System
 A good idea would be to finish up a basic on `uiLibrary` creating basic components (using smooth-ui as example) to have a reusable library for another apps.
 
 
-## Fully configured with now.sh, 'Serverless aproach'
+## Serveless mode, using now.sh to automatic deployment on each PR
 
 Its configured to produce a deploy the app on each PULL-REQUEST into a now.sh environement.
 
