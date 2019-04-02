@@ -1,25 +1,45 @@
 import { withRouter } from "next/router";
 import Layout from "../components/MyLayout.js";
+import { getPost } from "../api"
+import Router from "next/router";
+import React from "react";
+import Error from 'next/error'
 
-const Content = props => {
-  const { id, name, url, image, type } = props.post;
+class Content extends React.Component {
+  componentDidMount() {
+    if (!this.props.post ||!this.props.post.id) {
+      return Router.push('/not-found');
+    }
+  }
 
-  return (
-    <>
-      <h1>{`${id} - ${name}`}</h1>
-      <div style={{display: 'flex'}}>
-        <div>
-          <img src={image.medium} style={{'maxWidth': '50%'}}/>
+  render() {
+    if (!this.props.post || !this.props.post.id) {
+      return null;
+    }
+
+    const { id, name, url, image, type } = this.props.post;
+
+    return (
+      <>
+        <h1>{`${id} - ${name}`}</h1>
+        <div style={{ display: "flex" }}>
+          <div>
+            <img src={image.medium} style={{ maxWidth: "50%" }} />
+          </div>
+          <div>
+            <ul>
+              {[{ name }, { url }, { type }].map((el, idx) => (
+                <li key={idx}>{`${Object.keys(el)[0]} = ${
+                  Object.values(el)[0]
+                }`}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <ul>
-            {[{name}, {url}, {type}].map((el,idx) => (<li key={idx}>{`${Object.keys(el)[0]} = ${Object.values(el)[0]}`}</li>))}
-          </ul>
-        </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 const Post = props => (
   <Layout>
@@ -27,13 +47,12 @@ const Post = props => (
   </Layout>
 );
 
-Post.getInitialProps = async ({ pathname, query, asPath, req, res, err }) => {
-  console.log({ pathname, query, asPath, req, res, err });
-
-  const data = await fetch(`https://api.tvmaze.com/shows/${query.id}`);
-  const json = await data.json();
-  return { post: json };
+Post.getInitialProps = ({ pathname, query, asPath, req, res, err }) => {
+  try {
+    return getPost(query.id)
+  } catch (error) {
+    return null
+  }
 };
 
 export default withRouter(Post);
-
